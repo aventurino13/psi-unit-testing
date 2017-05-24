@@ -1,13 +1,17 @@
 var express = require('express');
 var app = express();
 var addOne = require('./modules/addOne');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
 
 // GET
 // /addOne/8
 app.get('/addOne/:number', function(req, res) {
   console.log('inside get route', req.params.number);
   // number might be a string
-  var myNum = req.params.number;
+  var myNum = parseInt(req.params.number);
   var result = addOne(myNum);
   res.status(200).send({answer: result});
 });
